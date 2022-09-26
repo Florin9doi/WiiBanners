@@ -1,0 +1,7 @@
+# Ignore files and directories
+__pycache__/
+
+Wii/title/*/*/*
+!Wii/title/*/*/data/
+Wii/title/*/*/data/*
+!Wii/title/*/*/data/banner.bin
