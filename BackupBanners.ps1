@@ -4,7 +4,7 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 #### Help
 if ($args.count -gt 0 -and ($args[0] -eq "--help" -or $args[0] -eq "-h")) {
 	Write-Output 'Usage: .\BackupBanners.ps1 "<Wii NAND Root>" <Git/Zip>'
-	Write-Output '       In Git mode the files will be placed in .\Banners\ folder to prepare a commit'
+	Write-Output '       In Git mode the files will be placed in .\Wii\title\ folder to prepare a commit'
 	Write-Output '       In Zip mode the files will be archived to be sent manually (Discord/Github)'
 	Write-Output 'Example: .\BackupBanners.ps1 "~\Documents\Dolphin Emulator\Wii\" Zip'
 	exit
@@ -47,7 +47,7 @@ if ($mode -eq "Git") {
 		$name = $(Resolve-Path -Path $file -Relative) -replace '\.\\',''
 		Write-Output $name
 		$dest = $name -match "([0-9a-fA-F]{8}\\[0-9a-fA-F]{8}\\data\\banner\.bin)"
-		$dest = "Banners\" + $matches[0]
+		$dest = "Wii\title\" + $matches[0]
 		$null = New-Item -ItemType File -Path $dest -Force
 		Copy-Item -path $name -destination $dest -Force
 	}
