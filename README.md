@@ -16,7 +16,7 @@
 
 #### Submit Banners on macOS (git)
 1. Clone the repo: `git clone https://github.com/Florin9doi/WiiBanners.git ~/WiiBanners`
-2. Run `rsync -avzPR ~/Library/Application\ Support/Dolphin/Wii/title/./*/*/*/banner.bin ~/WiiBanners/title/` in a terminal.
+2. Run `rsync -avzPR ~/Library/Application\ Support/Dolphin/Wii/title/./*/*/*/banner.bin ~/WiiBanners/Wii/title/` in a terminal.
 3. Submit a pull request
 
 #### Submit Banners on macOS (zip)
