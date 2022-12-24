@@ -47,9 +47,11 @@ if ($mode -eq "Git") {
 		$name = $(Resolve-Path -Path $file -Relative) -replace '\.\\',''
 		Write-Output $name
 		$dest = $name -match "([0-9a-fA-F]{8}\\[0-9a-fA-F]{8}\\data\\banner\.bin)"
-		$dest = "Wii\title\" + $matches[0]
-		$null = New-Item -ItemType File -Path $dest -Force
-		Copy-Item -path $name -destination $dest -Force
+		if ($dest) {
+			$dest = "Wii\title\" + $matches[0]
+			$null = New-Item -ItemType File -Path $dest -Force
+			Copy-Item -path $name -destination $dest -Force
+		}
 	}
 } elseif ($mode -eq "Zip") {
 	$files = Get-ChildItem $wiiNandRoot\banner.bin -Recurse -File
@@ -59,12 +61,14 @@ if ($mode -eq "Git") {
 		$name = $(Resolve-Path -Path $file -Relative) -replace '\.\\',''
 		Write-Output $name
 		$dest = $name -match "([0-9a-fA-F]{8}\\[0-9a-fA-F]{8}\\data\\banner\.bin)"
-		$dest = $matches[0]
-		$zentry = $zip.CreateEntry($dest)
-		$zentryWriter = New-Object -TypeName System.IO.BinaryWriter $zentry.Open()
-		$zentryWriter.Write([System.IO.File]::ReadAllBytes($file))
-		$zentryWriter.Flush()
-		$zentryWriter.Close()
+		if ($dest) {
+			$dest = $matches[0]
+			$zentry = $zip.CreateEntry($dest)
+			$zentryWriter = New-Object -TypeName System.IO.BinaryWriter $zentry.Open()
+			$zentryWriter.Write([System.IO.File]::ReadAllBytes($file))
+			$zentryWriter.Flush()
+			$zentryWriter.Close()
+		}
 	}
 	$zip.Dispose()
 }
